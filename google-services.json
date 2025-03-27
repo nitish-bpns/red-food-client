@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "569255817686",
+    "project_id": "red-food-club",
+    "storage_bucket": "red-food-club.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:569255817686:android:bf755de1d4381659a7f477",
+        "android_client_info": {
+          "package_name": "com.anonymous.merchrestro"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC040ctEYr3xlzxLFQX_O0jU4uFH4qx5gw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:569255817686:android:37887ce57a2218aca7f477",
+        "android_client_info": {
+          "package_name": "com.endernitish.redfoodclient"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC040ctEYr3xlzxLFQX_O0jU4uFH4qx5gw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:569255817686:android:5b0edea755d5a1b0a7f477",
+        "android_client_info": {
+          "package_name": "com.endernitish.redfoodmerchant"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC040ctEYr3xlzxLFQX_O0jU4uFH4qx5gw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

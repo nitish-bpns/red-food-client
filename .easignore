@@ -1,0 +1,76 @@
+# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
+
+# dependencies
+
+node_modules/
+
+# Expo
+
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+
+# Native
+
+_.orig._
+_.jks
+_.p8
+_.p12
+_.key
+\*.mobileprovision
+
+# Metro
+
+.metro-health-check\*
+
+# debug
+
+npm-debug._
+yarn-debug._
+yarn-error.\*
+
+# macOS
+
+.DS_Store
+\*.pem
+
+# local env files
+
+.env\*.local
+
+# typescript
+
+\*.tsbuildinfo
+
+app-example
+
+# Large assets that can be excluded
+
+/assets/videos
+/assets/raw-images
+
+# Ignore native directories (EAS Build will generate these)
+
+/android
+/ios
+
+# Ignore test files
+
+**tests**
+_.test.js
+_.spec.js
+
+/docs
+/coverage
+/node_modules/.cache
+/.expo
+/.vscode
+/.idea
+
+# Ignore documentation and other large files
+
+_.md
+_.pdf
+_.psd
+_.ai
