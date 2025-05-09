@@ -57,6 +57,15 @@
         }
       ],
       [
+        "expo-build-properties",
+        {
+          "android": {
+            "enableProguardInReleaseBuilds": true,
+            "extraProguardRules": "-keep public class com.horcrux.svg.** {*;}"
+          }
+        }
+      ],
+      [
         "@react-native-firebase/messaging",
         {
           "presentationOptions": [
@@ -81,7 +90,8 @@
       ],
       [
         "./plugins/notification-plugin.js"
-      ]
+      ],
+      "expo-build-properties"
     ],
     "experiments": {
       "typedRoutes": true
