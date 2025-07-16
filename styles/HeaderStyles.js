@@ -49,12 +49,11 @@ const HeaderStyles = StyleSheet.create({
     justifyContent: "flex-end",
     backgroundColor: "rgba(255, 255, 255, 0.8)",
   },
-
   modalBackdrop: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.5)", // Darken the backdrop
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
   modalWrapper: {
     width: 300,
@@ -69,14 +68,8 @@ const HeaderStyles = StyleSheet.create({
     borderColor: "#ccc",
   },
   modalItemText: {
-    fontSize: 14,
-    padding: 10,
-  },
-  modalItemText: {
     fontSize: 16,
     paddingVertical: 6,
-    // borderBottomWidth: 1,
-    // borderBottomColor: "#ddd",
     color: "#333",
   },
   addNewText: {
@@ -149,20 +142,45 @@ const HeaderStyles = StyleSheet.create({
     fontSize: 16,
     color: "#333",
   },
-  dropdownList: {
+  dropdownContainer: {
     backgroundColor: "#fff",
     borderWidth: 1,
     borderColor: "#ccc",
     borderRadius: 8,
     marginBottom: 10,
+    elevation: 2,
+  },
+  searchInput: {
+    height: 40,
+    borderBottomWidth: 1,
+    borderBottomColor: "#ddd",
+    paddingHorizontal: 15,
+    fontSize: 16,
+    color: "#333",
+    backgroundColor: "#F9F9F9",
+  },
+  dropdownList: {
+    maxHeight: 150,
+    backgroundColor: "#fff",
   },
   dropdownItem: {
     paddingVertical: 12,
     paddingHorizontal: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: "#f0f0f0",
   },
   dropdownItemText: {
     fontSize: 16,
     color: "#333",
+  },
+  noResultsContainer: {
+    padding: 20,
+    alignItems: "center",
+  },
+  noResultsText: {
+    fontSize: 16,
+    color: "#666",
+    fontStyle: "italic",
   },
   addressItem: {
     flexDirection: "row",

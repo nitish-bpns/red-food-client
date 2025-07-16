@@ -63,20 +63,20 @@ export default function CartScreen() {
       setLoading(true);
       const chargesData = await getCharges();
       if (chargesData && chargesData.data) {
-        setDeliveryFee(chargesData.data.delivery || 10);
-        setPackagingFee(chargesData.data.packaging || 10);
+        setDeliveryFee(chargesData.data.delivery || 0);
+        setPackagingFee(chargesData.data.packaging || 0);
         console.log("charges: ", chargesData);
         // Don't log state variables here as they won't reflect new values yet
       } else {
         // Fallback values if data is not in expected format
-        setDeliveryFee(10);
-        setPackagingFee(10);
+        setDeliveryFee(0);
+        setPackagingFee(0);
       }
     } catch (error) {
       console.error("Failed to fetch charges:", error);
       // Set default values if fetching fails
-      setDeliveryFee(10);
-      setPackagingFee(10);
+      setDeliveryFee(0);
+      setPackagingFee(0);
     } finally {
       setLoading(false);
     }

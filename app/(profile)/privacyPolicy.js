@@ -117,7 +117,8 @@ export default function PrivacyPolicy() {
         <Text style={styles.text}>
           If you have any questions or concerns about our privacy practices, you
           can contact us at:
-          {"\n"}- Email: support@canteen.com
+          {"\n"}- Email: support@redfoodclub.com
+          {"\n"}- Business Name: Raja niraj Manuel
           {"\n"}- Address:IIT Kharagpur, Kharagpur, West
           Bengal
         </Text>

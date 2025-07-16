@@ -19,8 +19,10 @@ export default function Support() {
       {/* Contact Information */}
       <View style={styles.card}>
         <Text style={styles.title}>Contact Us</Text>
+         <Text style={styles.label}> Business Name: </Text>
+        <Text style={styles.text}>Raja nirej Manuel</Text>
         <Text style={styles.label}>Email:</Text>
-        <Text style={styles.text}>support@example.com</Text>
+        <Text style={styles.text}>support@redfoodclub.com</Text>
         <Text style={styles.label}>Phone:</Text>
         <Text style={styles.text}>+91 95078 16000</Text>
       </View>

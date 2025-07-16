@@ -276,7 +276,8 @@ export default function TermsConditions() {
         <Text style={styles.sectionTitle}>26. Contact Us</Text>
         <Text style={styles.text}>
           For any questions, concerns, or feedback, you can contact us via:
-          {"\n"}- Email: support@canteen.com
+          {"\n"}- Email: support@redfoodclub.com
+          Business Name: Raja niraj Manuel
           {"\n"}- Address: IIT Kharagpur, Kharagpur, West
           Bengal
         </Text>

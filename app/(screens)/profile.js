@@ -135,11 +135,20 @@ export default function ProfileScreen() {
           <Link href="/privacyPolicy" style={styles.settingItem}>
             <Text style={styles.settingText}>Privacy Policy</Text>
           </Link>
+          <Link href="/refundPolicy" style={styles.settingItem}>
+            <Text style={styles.settingText}>Refund Policy</Text>
+          </Link>
+          <Link href="/shippingPolicy" style={styles.settingItem}>
+            <Text style={styles.settingText}>Shipping Policy</Text>
+          </Link>
           <Link href="/termsConditions" style={styles.settingItem}>
             <Text style={styles.settingText}>Term & Condition</Text>
           </Link>
           <Link href="/support" style={styles.settingItem}>
             <Text style={styles.settingText}>Support</Text>
+          </Link>
+          <Link href="/aboutUs" style={styles.settingItem}>
+            <Text style={styles.settingText}>About Us</Text>
           </Link>
         </View>
 

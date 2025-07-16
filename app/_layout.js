@@ -35,6 +35,17 @@ export default function RootLayout() {
   const appInitialized = useRef(false);
   const notificationPermissionRequested = useRef(false);
 
+  // Get basic device information using existing modules
+  const getBasicDeviceInfo = () => {
+    return {
+      deviceId: `${Platform.OS}_${Date.now()}`, // Simple device identifier
+      model: Platform.OS === "ios" ? "iPhone" : "Android",
+      osVersion: Platform.Version?.toString() || "unknown",
+      appVersion: "1.0.0", // You can update this manually
+      brand: Platform.OS === "ios" ? "Apple" : "Android",
+    };
+  };
+
   // Create notification channel for Android - optimized to run only once
   const createNotificationChannel = async () => {
     if (Platform.OS === "android") {
@@ -74,7 +85,7 @@ export default function RootLayout() {
     }
   };
 
-  // Send FCM token to backend with retry logic
+  // Send FCM token to backend with device info and retry logic
   async function sendTokenToBackend(token) {
     if (!token) {
       console.log("No token to send to backend");
@@ -95,18 +106,23 @@ export default function RootLayout() {
         }
 
         console.log(`Sending FCM token to backend (attempt ${retries + 1})...`);
+        
+        // Enhanced payload with basic device information
+        const payload = {
+          fcmToken: token,
+          platform: Platform.OS,
+          deviceInfo: getBasicDeviceInfo(),
+        };
+
         const response = await axios.post(
           `${BASE_URL}/notifications/register-token`,
-          {
-            fcmToken: token,
-            platform: Platform.OS,
-          },
+          payload,
           {
             headers: {
               "Content-Type": "application/json",
               Authorization: `Bearer ${authToken}`,
             },
-            timeout: 10000, // Increased timeout
+            timeout: 10000,
           }
         );
 
@@ -190,6 +206,40 @@ export default function RootLayout() {
     }
   }
 
+  // Enhanced navigation handler for different notification types
+  const handleNotificationNavigation = (data) => {
+    console.log("Handling notification navigation with data:", data);
+
+    if (!data) return;
+
+    try {
+      // Handle different notification types
+      switch (data.type) {
+        case "new_order":
+        case "order_placed":
+        case "order_status_update":
+          if (data.orderId) {
+            router.push(`(screens)/orders/${data.orderId}`);
+          }
+          break;
+
+        case "payment_update":
+          if (data.orderId) {
+            router.push(`(screens)/orders/${data.orderId}`);
+          }
+          break;
+
+        default:
+          // Default navigation - keeping existing logic
+          if (data.orderId) {
+            router.push(`(screens)/orders/${data.orderId}`);
+          }
+      }
+    } catch (error) {
+      console.error("Error handling notification navigation:", error);
+    }
+  };
+
   // Setup message listeners with improved navigation handling
   const setupMessageListeners = () => {
     // Foreground message handler with custom notification display
@@ -211,15 +261,12 @@ export default function RootLayout() {
       }
     );
 
-    // Background/Quit state handlers
+    // Background/Quit state handlers - updated to use new navigation handler
     messaging().onNotificationOpenedApp((remoteMessage) => {
       console.log("Notification opened app:", remoteMessage);
-
-      if (remoteMessage.data?.orderId) {
-        setTimeout(() => {
-          router.push(`(screens)/orders/${remoteMessage.data.orderId}`);
-        }, 1000); // Delay to ensure app is ready
-      }
+      setTimeout(() => {
+        handleNotificationNavigation(remoteMessage.data);
+      }, 1000); // Delay to ensure app is ready
     });
 
     messaging()
@@ -227,12 +274,9 @@ export default function RootLayout() {
       .then((remoteMessage) => {
         if (remoteMessage) {
           console.log("App opened from quit state:", remoteMessage);
-
-          if (remoteMessage.data?.orderId) {
-            setTimeout(() => {
-              router.push(`(screens)/orders/${remoteMessage.data.orderId}`);
-            }, 1500); // Longer delay for cold start
-          }
+          setTimeout(() => {
+            handleNotificationNavigation(remoteMessage.data);
+          }, 1500); // Longer delay for cold start
         }
       });
 
@@ -241,10 +285,7 @@ export default function RootLayout() {
       (response) => {
         const data = response.notification.request.content.data;
         console.log("Notification response received:", data);
-
-        if (data.orderId) {
-          router.push(`(screens)/orders/${data.orderId}`);
-        }
+        handleNotificationNavigation(data);
       }
     );
 
