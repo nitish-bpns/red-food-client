@@ -1,7 +1,9 @@
 import { Link, Tabs, usePathname } from "expo-router";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Platform, View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useSelector } from "react-redux";
+import { getAuthToken } from "../../utils/auth";
+import api from "../../utils/api";
 
 import { HapticTab } from "@/components/HapticTab";
 import { IconSymbol } from "@/components/ui/IconSymbol";
@@ -13,9 +15,49 @@ export default function TabLayout() {
   const colorScheme = useColorScheme();
   const cartItems = useSelector((state) => state.cart.items);
   const cartCount = cartItems.length;
-  const pathname = usePathname(); // Get current route pathname
+  const pathname = usePathname();
+  const [activeOrdersCount, setActiveOrdersCount] = useState(0);
 
-  const isCartOrProfileScreen = pathname === "/cart" || pathname === "/profile"; // Hide button on Cart & Profile screens
+  const isCartOrProfileScreen = pathname === "/cart" || pathname === "/profile";
+
+  // Fetch active orders count
+  const fetchActiveOrdersCount = async () => {
+    try {
+      const yourAuthToken = await getAuthToken();
+      if (!yourAuthToken) {
+        return;
+      }
+
+      const response = await api.get("/orders/user-orders", {
+        headers: {
+          Authorization: `Bearer ${yourAuthToken}`,
+        },
+      });
+
+      if (response.status === 200) {
+        const activeOrders = response.data.data.filter(
+          order => 
+            order.status === "Pending" || 
+            order.status === "Preparing" || 
+            order.status === "Out for delivery"
+        );
+        setActiveOrdersCount(activeOrders.length);
+      }
+    } catch (error) {
+      console.error("Error fetching active orders:", error);
+      setActiveOrdersCount(0);
+    }
+  };
+
+  // Fetch active orders on component mount and when pathname changes
+  useEffect(() => {
+    fetchActiveOrdersCount();
+    
+    // Set up interval to refresh active orders count every 30 seconds
+    const interval = setInterval(fetchActiveOrdersCount, 30000);
+    
+    return () => clearInterval(interval);
+  }, [pathname]);
 
   return (
     <View style={{ flex: 1 }}>
@@ -47,6 +89,22 @@ export default function TabLayout() {
             title: "Favorites",
             tabBarIcon: ({ color }) => (
               <IconSymbol size={28} name="favorite.fill" color={color} />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="repeatOrders"
+          options={{
+            title: "Orders",
+            tabBarIcon: ({ color }) => (
+              <View>
+                <IconSymbol size={28} name="delivery.fill" color={color} />
+                {activeOrdersCount > 0 && (
+                  <View style={styles.badge}>
+                    <Text style={styles.badgeText}>{activeOrdersCount}</Text>
+                  </View>
+                )}
+              </View>
             ),
           }}
         />
